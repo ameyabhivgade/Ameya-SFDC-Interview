@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Character Frequency Calculator">
+        <lightning-input  type="text" label="Enter String" value={inputString} onchange={handleInputChange}></lightning-input>
+        <lightning-button label="Find Count"  title="Find" onclick={handleClick}></lightning-button>
+        <lightning-button label="Reset"  title="Reset" onclick={handleReset}></lightning-button>
+
+        <template for:each={mapArray} for:item="Item" >
+            <p key={Item.char}>
+                {Item.char} : {Item.count}
+            </p>
+        </template>
+    </lightning-card>
+</template>

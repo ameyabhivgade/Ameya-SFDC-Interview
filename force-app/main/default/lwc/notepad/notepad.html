@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title="Notepad" icon-name="action:new_note">
+        <lightning-textarea area-label="Text input area" placeholder="Enter text here...." value={inputField} onchange={handleOnchange}></lightning-textarea>
+        <span area-label = "word count"><b> {wordCount}</b>Words,</span>
+        <span area-label = "charecter count"> <b> {charecterCount} </b>Charecters,</span>
+        <span area-label = "spaces count"> <b> {spaceCount} </b>Spaces</span>
+    </lightning-card>
+</template>

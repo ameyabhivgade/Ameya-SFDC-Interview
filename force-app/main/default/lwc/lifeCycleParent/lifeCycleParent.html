@@ -1,0 +1,18 @@
+<template>
+    <div>
+        <div class="parent-section">
+            <h4>Parent lifecycle hooks on load</h4>
+            <div class="box success"><strong>constructor :</strong> {constructorProperty}</div>
+            <div class="box info"><strong>connectedCallback :</strong> {connectedCallbackProperty}</div>
+            <div class="box warning"><strong>renderedCallback :</strong> {renderedCallbackProperty}</div>
+            <div class="flex">
+                <button class={getClassName} onclick={toggleRendering}>{getBtnText}</button>
+                <button class="btn" onclick={renderTemplate}>trigger render hook</button>
+            </div>
+        </div>
+        
+        <template if:true={showChild}>
+            <c-life-cycle-child></c-life-cycle-child>
+        </template>
+    </div>
+</template>
