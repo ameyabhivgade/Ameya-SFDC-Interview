@@ -28,14 +28,20 @@ trigger AccountRevenueTrigger on Opportunity (after insert, after update, after 
         }
     }
     
-    List<AggregateResult> aggregateResults = [SELECT accountId, SUM(Amount) FROM Opportunity WHERE accountId IN:accountIdSet AND StageName != 'Closed Lost' GROUP BY accountId];
     List<Account> accountList = new List<Account>();
-    for(AggregateResult aggregateResult : aggregateResults){
+    for(AggregateResult aggregateResult : [SELECT accountId, SUM(Amount) FROM Opportunity WHERE accountId IN:accountIdSet AND StageName != 'Closed Lost' GROUP BY accountId]){
 		Account acc = new Account();
         acc.Id = (Id)aggregateResult.get('accountId');
         acc.Revenue_Forecast__c = Integer.valueOf(aggregateResult.get('expr0'));
         accountList.add(acc);
     }
+    
+    for(Id accountId : accountIdSet){
+        if(!accountList.contains(new Account(Id=accountId))){
+            accountList.add(new Account(Id=accountId, Revenue_Forecast__c=0));
+        }
+    }
+    
     if(!accountList.isEmpty()){
         UPDATE accountList;
     }
